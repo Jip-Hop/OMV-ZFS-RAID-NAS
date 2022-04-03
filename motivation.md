@@ -2,7 +2,7 @@
 
 ## Motivation
 
-I plan to migrate from my Synology NAS to a new system with the requirements listed below. I settled on [Openmediavault](https://www.openmediavault.org), but had to find a way to conveniently install it with root on ZFS to fully check all my boxes. I initially started to write an install script which uses `debootstrap` to install Debian. But this soon started feeling messy. Then it dawned on me that [Proxmox](https://pve.proxmox.com) is one of [few](https://www.truenas.com/truenas-scale/) installers which allow installing Linux with root on ZFS with RAID options. I find it a convenient jump-box for installing OMV. And by using the official Proxmox and Openmediavault installer ISOs it now feels like I'm standing on the shoulders of giants when installing using [this method](README.md).
+I plan to migrate from my Synology NAS to a new system with the requirements listed below. I settled on [Openmediavault](https://www.openmediavault.org), but had to find a way to conveniently install it with root on ZFS to fully check all my boxes. I initially [started to write an install script which uses `debootstrap`](https://github.com/Jip-Hop/OMV-ZFS-RAID-NAS/tree/debootstrap) to install Debian. But this soon started feeling messy. Then it dawned on me that [Proxmox](https://pve.proxmox.com) is one of [few](https://www.truenas.com/truenas-scale/) installers which allow installing Linux with root on ZFS with RAID options. I find it a convenient jump-box for installing OMV. And by using the official Proxmox and Openmediavault installer ISOs it now feels like I'm standing on the shoulders of giants when installing using [this method](README.md).
 
 ### Requirements
 
