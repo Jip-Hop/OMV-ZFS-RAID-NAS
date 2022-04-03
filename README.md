@@ -172,14 +172,14 @@ mkdir -pv /tmp/boot/efi
 for EFIPARTITION in "${EFIPARTITIONS[@]}"
 do
    : 
-	mount "/dev/$EFIPARTITION" /tmp/boot/efi
+    mount "/dev/$EFIPARTITION" /tmp/boot/efi
     # Remove everything in /tmp/boot/efi
     rm -r /tmp/boot/efi/*
-	mkdir -pv /tmp/boot/efi/EFI/boot/
+    mkdir -pv /tmp/boot/efi/EFI/boot/
 
-	# Copy EFI binary to all disks, to prevent it being a single point of failure
-	cp -v /tmp/bootx64.efi /tmp/boot/efi/EFI/boot/bootx64.efi
-	umount "/dev/$EFIPARTITION"
+    # Copy EFI binary to all disks, to prevent it being a single point of failure
+    cp -v /tmp/bootx64.efi /tmp/boot/efi/EFI/boot/bootx64.efi
+    umount "/dev/$EFIPARTITION"
 done
 
 mkdir /tmp/src
