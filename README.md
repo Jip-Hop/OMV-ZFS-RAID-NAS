@@ -44,7 +44,7 @@ These instructions are known to work with the following hardware:
 To follow these instructions you need to have the following:
 
 - PC/Server compatible with Proxmox and [UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface)
-- Proxmox ISO (tested with [proxmox-ve_7.1-2.iso](https://www.proxmox.com/en/downloads?task=callelement&format=raw&item_id=638&element=f85c494b-2b32-4109-b8c1-083cca2b7db6&method=download&args[0]=36adaf267a24a8a85835d0f0ac5d65fd))
+- Proxmox ISO (tested with [proxmox-ve_7.1-2.iso](https://www.proxmox.com/en/downloads/item/proxmox-ve-7-1-iso-installer))
 - Openmediavault ISO (tested with [openmediavault_6.0-34-amd64.iso](https://sourceforge.net/projects/openmediavault/files/6.0-34/openmediavault_6.0-34-amd64.iso/download))
 - USB stick to write Proxmox ISO to
 - [Etcher](https://www.balena.io/etcher/) to write ISO to USB (or an alternative tool)
@@ -57,7 +57,7 @@ Write the Proxmox ISO to your USB stick with Etcher. Boot from the USB stick and
 
 ![Proxmox Disk Setup](./screenshots/proxmox-disk-setup.png)
 
-Advanced users [may want](#suggestions) to decrease the hdsize under [Advanced Options](./screenshots/proxmox-disk-setup-advanced.png).
+Advanced users [may want](suggestions.md#suggestions) to decrease the hdsize under [Advanced Options](./screenshots/proxmox-disk-setup-advanced.png).
 
 Hit `OK`, `Next` and complete the installation steps. The machine should automatically reboot after the installation is finished.
 
