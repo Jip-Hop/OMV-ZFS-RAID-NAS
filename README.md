@@ -171,7 +171,6 @@ mkdir -pv /tmp/boot/efi
 # https://www.osso.nl/blog/zfs-zvol-partition-does-not-show-up/
 for EFIPARTITION in "${EFIPARTITIONS[@]}"
 do
-   : 
     mount "/dev/$EFIPARTITION" /tmp/boot/efi
     # Remove everything in /tmp/boot/efi
     rm -r /tmp/boot/efi/*
@@ -187,6 +186,9 @@ mkdir /tmp/dst
 
 # Enable autotrim for SSDs (should be ignored by HDDs)
 zpool set autotrim=on $ZPOOL
+
+# Enable newer compression algorithm
+zfs set compression=zstd rpool
 
 # Create dataset for OMV
 # Don't follow the rpool/ROOT/ naming convention (optional when using ZFSBootMenu)
@@ -209,6 +211,11 @@ rm -rf /tmp/dst/*
 cp --archive -v /tmp/src/* /tmp/dst
 # Clear fstab file (no need to mount root filesystem via fstab)
 echo "" > /tmp/dst/etc/fstab
+
+# Rename no longer needed grub file to prevent KCL migration warning by ZFSBootMenu
+# https://github.com/zbm-dev/zfsbootmenu/discussions/287
+mv /etc/default/grub /etc/default/grub.bak
+mv /tmp/dst/etc/default/grub /tmp/dst/etc/default/grub.bak
 
 sync
 
@@ -237,26 +244,9 @@ The system will now reboot into the ZFSBootMenu. When booting into ZFSBootMenu f
 ##### Inside ZFSBootMenu
 #####
 
-zpool import -af
+zpool import -f rpool
 exit
 ```
-
-ZFSBootMenu will display a warning:
-
-```
-Using KCL from /etc/default/grub on pool rpool/omv
-This behavior is DEPRECATED and will be removed soon
-
-KCL should be migrated to an org.zfsbootmenu:commandline property.
-
-Will attempt migration in 60 seconds
-```
-
-Wait for the timer to complete or press `Enter` to allow the migration. The same message will show up for the Proxmox installation. Press `Enter` again.
-
-> NOTE: I allowed ZFSBootMenu to migrate and didn't see the warning since then. I tried running: `update-grub`, which completed successfully (even though GRUB is not used as bootloader). System could still boot successfully afterwards.
-
-> TODO: Figure out how to prevent this warning. Ensure it doesn't break when deprecated behavior is removed.
 
 Select `rpool/omv` and press `Enter`. The system should now boot directly into Openmediavault instead of Proxmox. At this stage you basically have a system dual-booting Proxmox and Openmediavault. I haven't tested Proxmox much to confirm it works properly. Since we don't need it anymore we'll remove Proxmox now and fix some things on OMV.
 
